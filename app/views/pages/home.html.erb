@@ -1,12 +1,14 @@
 <div class="container">
-  <h1>Qui es-tu ?</h1>
-  <div class='flex bg-white p-4 rounded-sm'>
+  <div class='bg-white p-4 rounded-lg shadow-md'>
+  <h1>Bienvenue 👋</h1>
+  <p>Aide nous à t'indiquer les dispositifs auxquels tu as droit !</p>
+
   <%= simple_form_for @visitor do |f| %>
-    <%= f.input :age %>
-    <%= f.input :scholarship %>
-    <%= f.input :has_handicap %>
-    <%= f.input :zip_code %>
-    <%= f.submit 'Prochaine étape' %>
+    <%= f.input :age, label: 'Quel est ton âge ?' %>
+    <%= f.input :scholarship, label: 'Es-tu boursier ?' %>
+    <%= f.input :has_handicap, label: 'Est-ce que tu as un handicap ?' %>
+    <%= f.input :zip_code, label: 'Quel est ton code postal ?' %>
+    <%= f.submit 'Prochaine étape 💪', class: 'button bg-blue-500 p-3 text-white rounded-lg' %>
   <% end %>
   </div>
 </div>
