@@ -906,7 +906,7 @@
   "meta": {
     "database_type": "postgresql",
     "liana": "forest-rails",
-    "liana_version": "5.4.3",
+    "liana_version": "5.4.4",
     "orm_version": "6.0.3.5"
   }
 }
