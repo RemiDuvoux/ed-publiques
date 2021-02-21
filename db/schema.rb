@@ -10,10 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_21_165702) do
+ActiveRecord::Schema.define(version: 2021_02_21_182509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "handicaps", force: :cascade do |t|
+    t.integer "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "needs", force: :cascade do |t|
+    t.integer "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "scheme_handicaps", force: :cascade do |t|
+    t.bigint "scheme_id"
+    t.bigint "handicap_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["handicap_id"], name: "index_scheme_handicaps_on_handicap_id"
+    t.index ["scheme_id"], name: "index_scheme_handicaps_on_scheme_id"
+  end
+
+  create_table "schemes", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.string "description"
+    t.integer "min_age"
+    t.integer "max_age"
+    t.boolean "scholarship_needed"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +59,33 @@ ActiveRecord::Schema.define(version: 2021_02_21_165702) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "visitor_handicaps", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "handicap_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["handicap_id"], name: "index_visitor_handicaps_on_handicap_id"
+    t.index ["user_id"], name: "index_visitor_handicaps_on_user_id"
+  end
+
+  create_table "visitor_needs", force: :cascade do |t|
+    t.bigint "visitor_id", null: false
+    t.bigint "need_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["need_id"], name: "index_visitor_needs_on_need_id"
+    t.index ["visitor_id"], name: "index_visitor_needs_on_visitor_id"
+  end
+
+  create_table "visitors", force: :cascade do |t|
+    t.integer "age"
+    t.boolean "scholarship"
+    t.boolean "has_handicap"
+    t.string "zip_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "visitor_needs", "needs"
+  add_foreign_key "visitor_needs", "visitors"
 end

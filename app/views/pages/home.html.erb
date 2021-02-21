@@ -1,2 +1,12 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container">
+  <h1>Qui es-tu ?</h1>
+  <div class='flex bg-white p-4 rounded-sm'>
+  <%= simple_form_for @visitor do |f| %>
+    <%= f.input :age %>
+    <%= f.input :scholarship %>
+    <%= f.input :has_handicap %>
+    <%= f.input :zip_code %>
+    <%= f.submit 'Prochaine étape' %>
+  <% end %>
+  </div>
+</div>

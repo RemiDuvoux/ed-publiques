@@ -1,0 +1,2 @@
+class VisitorHandicap < ApplicationRecord
+end

@@ -1,0 +1,17 @@
+<% if @visitor.needs.present? %>
+  la liste des dispositifs
+<% else @visitor.needs.present? %>
+<div class="container">
+  <h1>Quels besoins ressens-tu ?</h1>
+  <div class='flex bg-white p-4 rounded-sm'>
+    <form action="update-visitor-needs">
+    <% @possible_needs.each do |need|  %>
+      <input type="checkbox" value="<%= need %>" name='<%= need %>'>
+      <label for="<%= need %>" id="<%= need %>"><%= need %></label><br>
+    <% end %>
+     <input type="hidden" id="visitor_id" name="visitor_id" value="<%= @visitor.id %>">
+    <button type="submit">Voir les aides</button>
+  </form>
+  </div>
+</div>
+<% end %>

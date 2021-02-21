@@ -1,0 +1,2 @@
+class SchemeHandicap < ApplicationRecord
+end
