@@ -1,4 +1,6 @@
 class VisitorsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [ :create, :show, :update_needs ]
+
   def create
     @visitor = Visitor.create(
       age: params["visitor"][:age],
