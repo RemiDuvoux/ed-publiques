@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_21_182509) do
+ActiveRecord::Schema.define(version: 2021_02_21_221456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(version: 2021_02_21_182509) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["handicap_id"], name: "index_scheme_handicaps_on_handicap_id"
     t.index ["scheme_id"], name: "index_scheme_handicaps_on_scheme_id"
+  end
+
+  create_table "scheme_needs", force: :cascade do |t|
+    t.bigint "scheme_id", null: false
+    t.bigint "need_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["need_id"], name: "index_scheme_needs_on_need_id"
+    t.index ["scheme_id"], name: "index_scheme_needs_on_scheme_id"
   end
 
   create_table "schemes", force: :cascade do |t|
@@ -60,12 +69,12 @@ ActiveRecord::Schema.define(version: 2021_02_21_182509) do
   end
 
   create_table "visitor_handicaps", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "visitor_id"
     t.bigint "handicap_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["handicap_id"], name: "index_visitor_handicaps_on_handicap_id"
-    t.index ["user_id"], name: "index_visitor_handicaps_on_user_id"
+    t.index ["visitor_id"], name: "index_visitor_handicaps_on_visitor_id"
   end
 
   create_table "visitor_needs", force: :cascade do |t|
@@ -86,6 +95,8 @@ ActiveRecord::Schema.define(version: 2021_02_21_182509) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "scheme_needs", "needs"
+  add_foreign_key "scheme_needs", "schemes"
   add_foreign_key "visitor_needs", "needs"
   add_foreign_key "visitor_needs", "visitors"
 end

@@ -4,11 +4,38 @@
   <p>Aide nous à t'indiquer les dispositifs auxquels tu as droit !</p>
 
   <%= simple_form_for @visitor do |f| %>
-    <%= f.input :age, label: 'Quel est ton âge ?' %>
+    <%= f.input :age, label: 'Quel est ton âge ?', required: true %>
     <%= f.input :scholarship, label: 'Es-tu boursier ?' %>
-    <%= f.input :has_handicap, label: 'Est-ce que tu as un handicap ?' %>
+    <%= f.input :has_handicap, label: 'J\'ai un handicap' %>
+    <div class="form-group">
+      <input class="form-control string optional" name="handicap-list" placeholder="Quel est-il ?" list="handicaps"></input>
+      <datalist id="handicaps">
+        <option value="Visuel">
+        <option value="Moteur">
+        <option value="Cécité">
+        <option value="Paralysie">
+        <option value="Cancer">
+      </datalist>
+    </div>
     <%= f.input :zip_code, label: 'Quel est ton code postal ?' %>
     <%= f.submit 'Prochaine étape 💪', class: 'button bg-blue-500 p-3 text-white rounded-lg' %>
   <% end %>
   </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+    $(function () {
+          $('input[name="handicap-list"]').hide();
+
+          //show it when the checkbox is clicked
+          $('input[name="visitor[has_handicap]"]').on('click', function () {
+              if ($(this).prop('checked')) {
+                  $('input[name="handicap-list"]').fadeIn();
+              } else {
+                  $('input[name="handicap-list"]').hide();
+              }
+          });
+      });
+  });
+</script>

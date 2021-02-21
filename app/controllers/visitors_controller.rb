@@ -11,22 +11,18 @@ class VisitorsController < ApplicationController
     redirect_to action: 'show', id: @visitor.id
   end
 
-  def update
-
-  end
-
   def show
     @visitor = Visitor.find(params['id'])
     @possible_needs = Need::NAMES
+    @compatible_schemes = @visitor.compatible_schemes
   end
 
   def update_needs
     @visitor = Visitor.find(params["visitor_id"])
-    Need::NAMES.each do |name|
-      VisitorNeed.create(
-        visitor: @visitor,
-        need: Need.find_by(name: name)
-      )
+    Need::NAMES.each do |n|
+      if params[n].present?
+        VisitorNeed.create(visitor: @visitor, need: Need.find_by(name: params[n]))
+      end
     end
     redirect_to action: 'show', id: @visitor.id
   end

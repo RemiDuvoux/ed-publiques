@@ -1,8 +1,32 @@
 <div class="container">
-  <div class='bg-white p-4 rounded-lg shadow-md'>
+  <div class='bg-white p-4 rounded-lg shadow-md mb-8'>
+    <h3>Tes informations:</h3>
+    <p>Age: <%= @visitor.age %></p>
+    <p>Besoins:</p>
+    <ul>
+    <% @visitor.needs.map(&:name).each do |n| %>
+      <li>- <%= n %></li>
+    <% end %>
+    </ul>
+    <% if @visitor.handicaps.present? %>
+      <p>Handicaps: <%= @visitor.handicaps.map(&:name) %></p>
+    <% end %>
+  </div>
     <% if @visitor.needs.present? %>
-      la liste des dispositifs
+        <h2>Voici les dispositifs que nous avons identifié</h2>
+        <% @compatible_schemes.each do |s| %>
+          <div class='bg-white p-4 rounded-lg shadow-md mb-8'>
+            <h3><%= s.name %></h3>
+            <p><%= s.description %></p>
+            <p>Besoins: <%= s.needs.map(&:name).join(' ,') %></p>
+          </div>
+        <% end %>
+        <% if @compatible_schemes.empty? %>
+          <p>Nous n'avons pas trouvé de dispositifs vous concernant.</p>
+          <p>Notre base de données de dispositifs est en permanente évolution.</p>
+        <% end %>
     <% else @visitor.needs.present? %>
+    <div class='bg-white p-4 rounded-lg shadow-md'>
     <h1>Merci 🙏</h1>
     <p>Quels besoins ressens-tu ? Cela nous aidera à te proposer les dispositifs les plus pertinents !</p>
       <div class='flex bg-white p-4 rounded-sm'>
